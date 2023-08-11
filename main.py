@@ -105,7 +105,7 @@ class Wallet(cmd.Cmd):
     invoice = args.strip()
     print('\nPaying invoice.....: ', invoice)
     try:
-      self.sdk_services.send_payment(invoice, Non)
+      self.sdk_services.send_payment(invoice, None)
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
