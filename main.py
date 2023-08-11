@@ -98,9 +98,17 @@ class Wallet(cmd.Cmd):
       # Handle error
       print('error getting invoice: ', error)
 
-  def do_pay_lightning_invoice(self, arg):
-    # Logic to pay a lightning invoice (off-chain)
-    pass
+  def do_pay_invoice(self, args):
+    """Pay lightning invoice (off-chain)
+    Usage: pay_invoice <invoice>
+    """
+    invoice = args.strip()
+    print('\nPaying invoice.....: ', invoice)
+    try:
+      self.sdk_services.send_payment(invoice, Non)
+    except Exception as error:
+      # Handle error
+      print('error paying invoice: ', error)
 
   def _print_payments(self, payments):
     # Print the headers
@@ -109,7 +117,7 @@ class Wallet(cmd.Cmd):
 
     # Print the details of each payment
     for payment in payments:
-        print(f"{payment.id} | {payment.payment_type} | {payment.payment_time} | [{payment.amount_msat} {payment.fee_msat}] | {payment.pending} | {payment.description}")
+      print(f"{payment.id} | {payment.payment_type} | {payment.payment_time} | [{payment.amount_msat} {payment.fee_msat}] | {payment.pending} | {payment.description}")
 
 
   def do_list_txs(self, arg):
