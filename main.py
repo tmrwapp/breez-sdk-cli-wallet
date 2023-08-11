@@ -5,7 +5,7 @@ import bip39
 import breez_sdk
 import cmd
 from secrets_loader import load_secrets
-from breez_sdk import PaymentTypeFilter, NodeState, LspInformation
+from breez_sdk import PaymentTypeFilter
 from info_printer import InfoPrinter
 
 # SDK events listener
@@ -122,7 +122,8 @@ class Wallet(cmd.Cmd, InfoPrinter):
     except Exception as error:
       print('error sending payment: ', error)
 
-  def do_list_txs(self, arg):
+  def do_txs(self, arg):
+    """List transactions"""
     # Logic to list payments
     now = time.time()
     payments = self.sdk_services.list_payments(PaymentTypeFilter.ALL, 0, now)
