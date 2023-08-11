@@ -1,176 +1,128 @@
 import os
 import time
-import argparse
 import bip39
 import breez_sdk
-from threading import Thread, Event
+import cmd
 from secrets_loader import load_secrets
 from breez_sdk import PaymentTypeFilter
-from threading import Event
-
-# Load secrets from file
-secrets = load_secrets('secrets.txt')
-
-# Global variable to hold the SDK services
-sdk_services = None
-
-# Event object to keep the program running
-exit_event = Event()
-
-def wait_for_event(event):
-  event.wait()
-
-def sync():
-  # Logic to sync node
-  sdk_services.sync()
-
-def get_node_info():
-  # Logic to get node info
-  node_info = sdk_services.node_info()
-  print(node_info)
-  try: 
-    lsp_id = sdk_services.lsp_id()
-    lsp_info = sdk_services.fetch_lsp_info(lsp_id)
-    print('LSP info: ', lsp_info)
-  except Exception as error:
-    print('Error getting LSP info: ', error)
-
-def get_balance():
-  # Logic to get balance
-  node_info = sdk_services.node_info()
-  ln_balance = node_info.channels_balance_msat
-  onchain_balance = node_info.onchain_balance_msat
-  print('Lightning balance: ', ln_balance, ' millisatoshis, On-chain balance: ', onchain_balance, ' millisatoshis')
-
-def get_deposit_address():
-  # Logic to get deposit address (on-chain)
-  swap_info = sdk_services.receive_onchain()
-  print('Bitcoin Address:', swap_info.bitcoin_address)
-  print('Payment Hash:', bytes(swap_info.payment_hash).hex())
-  print('Preimage:', bytes(swap_info.preimage).hex())
-  print('Private Key:', bytes(swap_info.private_key).hex())
-  print('Public Key:', bytes(swap_info.public_key).hex())
-  print('Script:', bytes(swap_info.script).hex())
-  print('Paid Satoshis:', swap_info.paid_sats)
-  print('Unconfirmed Satoshis:', swap_info.unconfirmed_sats)
-  print('Confirmed Satoshis:', swap_info.confirmed_sats)
-  print('Status:', swap_info.status)
-  print('Refund Transaction IDs:')
-  for tx_id in swap_info.refund_tx_ids:
-    print('  -', bytes(tx_id).hex())
-
-  print('Unconfirmed Transaction IDs:')
-  for tx_id in swap_info.unconfirmed_tx_ids:
-    print('  -', bytes(tx_id).hex())
-
-  print('Confirmed Transaction IDs:')
-  for tx_id in swap_info.confirmed_tx_ids:
-    print('  -', bytes(tx_id).hex())
-
-def send_funds():
-  # Logic to send funds (on-chain)
-  pass
-
-def get_lightning_invoice(amount, memo=None):
-  print(f'Getting invoice for amount: {amount}')
-  if memo:
-      print(f'With memo: {memo}')
-  try:
-    invoice = sdk_services.receive_payment(amount, f'Invoice for {amount} sats')
-    print('pay: ', invoice.bolt11)
-  except Exception as error:
-    # Handle error
-    print('error getting invoice: ', error)
-
-def pay_lightning_invoice():
-  # Logic to pay a lightning invoice (off-chain)
-  pass
-
-def list_payments():
-  # Logic to list payments
-  now = time.time()
-  payments = sdk_services.list_payments(PaymentTypeFilter.ALL, 0, now)
-  print('txs: ', payments)
-
-parser = argparse.ArgumentParser(description='Manage Greenlight node via Breez SDK.')
-parser.add_argument('--sync', action='store_true', help='Sync node')
-parser.add_argument('--info', action='store_true', help='Get node info')
-parser.add_argument('--balance', action='store_true', help='Get balance')
-parser.add_argument('--deposit-address', action='store_true', help='Get deposit address (on-chain)')
-parser.add_argument('--send-funds', action='store_true', help='Send funds (on-chain)')
-parser.add_argument('--get-invoice', action='store_true', help='Get a lightning invoice (off-chain)')
-parser.add_argument('--amount', type=int, help='Amount for getting an invoice (required with --get-invoice)')
-parser.add_argument('--memo', type=str, help='Optional memo for getting an invoice (used with --get-invoice)')
-parser.add_argument('--pay-invoice', action='store_true', help='Pay a lightning invoice (off-chain)')
-parser.add_argument('--list-payments', action='store_true', help='List payments')
-
-args = parser.parse_args()
 
 # SDK events listener
 class SDKListener(breez_sdk.EventListener):
    def on_event(self, event):
-      print(event)
+      pass
+      # print(event)
 
-def setup():
-  global sdk_services
-  global args
-  # Create the default config
-  mnemonic = secrets['phrase']
-  invite_code = secrets['invite_code']
-  api_key = secrets['api_key']
-  seed = bip39.phrase_to_seed(mnemonic)
+class Wallet(cmd.Cmd):
+  def __init__(self):
+    super().__init__()
 
-  config = breez_sdk.default_config(breez_sdk.EnvironmentType.PRODUCTION, api_key,
-      breez_sdk.NodeConfig.GREENLIGHT(breez_sdk.GreenlightNodeConfig(None, invite_code)))
+    # Load secrets from file
+    secrets = load_secrets('secrets.txt')
 
-  # Customize the config object according to your needs
-  config.working_dir = os.getcwd()
+    # Create the default config
+    mnemonic = secrets['phrase']
+    invite_code = secrets['invite_code']
+    api_key = secrets['api_key']
+    seed = bip39.phrase_to_seed(mnemonic)
 
-  try:
-    # Creating background thread to wait for the exit event
-    exit_event = Event()
-    wait_thread = Thread(target=wait_for_event, args=(exit_event,))
-    wait_thread.daemon = True  # Set the thread as a daemon so it will exit when the main program does
-    wait_thread.start()
+    config = breez_sdk.default_config(breez_sdk.EnvironmentType.PRODUCTION, api_key,
+        breez_sdk.NodeConfig.GREENLIGHT(breez_sdk.GreenlightNodeConfig(None, invite_code)))
 
-    # Connect to the Breez SDK make it ready for use    
-    sdk_services = breez_sdk.connect(config, seed, SDKListener())
+    # Customize the config object according to your needs
+    config.working_dir = os.getcwd()
 
-    # Getting LSP
-    lsp_id = sdk_services.lsp_id()
-    sdk_services.connect_lsp(lsp_id)
-    lsps = sdk_services.list_lsps()
-    print('lsps: ', lsps)
-    fees = sdk_services.recommended_fees()
-    print('fees: ', fees)
-  except Exception as error:
-    # Handle error
-    print('error: ', error)
+    # Connect to the Breez SDK make it ready for use
+    self.sdk_services = breez_sdk.connect(config, seed, SDKListener())
+    self.prompt = 'wallet> '
 
-  # Run the requested command
-  if args.info:
-    get_node_info()
-  elif args.balance:
-    get_balance()
-  elif args.deposit_address:
-    get_deposit_address()
-  elif args.send_funds:
-    send_funds()
-  elif args.get_invoice:
-    if args.amount is None:
-      parser.error('--get-invoice requires --amount to be specified.')
-    get_lightning_invoice(args.amount, args.memo)
-  elif args.pay_invoice:
-    pay_lightning_invoice()
-  elif args.list_payments:
-    list_payments()
-  elif args.sync:
-    sync()
-  else:
-    parser.print_help()
+  def do_get_node_info(self, arg):
+    """Get node info"""
+    # Logic to get node info
+    node_info = self.sdk_services.node_info()
+    print(node_info)
+    try:
+      lsp_id = self.sdk_services.lsp_id()
+      lsp_info = self.sdk_services.fetch_lsp_info(lsp_id)
+      print('LSP info: ', lsp_info)
+    except Exception as error:
+      print('Error getting LSP info: ', error)
 
-  # Wait for the exit_event to be set
-  exit_event.wait()
+  def do_get_balance(self, arg):
+    """Get balance"""
+    # Logic to get balance
+    node_info = self.sdk_services.node_info()
+    ln_balance = node_info.channels_balance_msat
+    onchain_balance = node_info.onchain_balance_msat
+    print('Lightning balance: ', ln_balance, ' millisatoshis, On-chain balance: ', onchain_balance, ' millisatoshis')
+
+  def do_get_deposit_address(self, arg):
+    """Get deposit address (on-chain)"""
+    # Logic to get deposit address (on-chain)
+    swap_info = self.sdk_services.receive_onchain()
+    print('Bitcoin Address:', swap_info.bitcoin_address)
+    print('Payment Hash:', bytes(swap_info.payment_hash).hex())
+    print('Preimage:', bytes(swap_info.preimage).hex())
+    print('Private Key:', bytes(swap_info.private_key).hex())
+    print('Public Key:', bytes(swap_info.public_key).hex())
+    print('Script:', bytes(swap_info.script).hex())
+    print('Paid Satoshis:', swap_info.paid_sats)
+    print('Unconfirmed Satoshis:', swap_info.unconfirmed_sats)
+    print('Confirmed Satoshis:', swap_info.confirmed_sats)
+    print('Status:', swap_info.status)
+    print('Refund Transaction IDs:')
+    for tx_id in swap_info.refund_tx_ids:
+      print('  -', bytes(tx_id).hex())
+
+    print('Unconfirmed Transaction IDs:')
+    for tx_id in swap_info.unconfirmed_tx_ids:
+      print('  -', bytes(tx_id).hex())
+
+    print('Confirmed Transaction IDs:')
+    for tx_id in swap_info.confirmed_tx_ids:
+      print('  -', bytes(tx_id).hex())
+
+  def do_send_funds(self, arg):
+    # Logic to send funds (on-chain)
+    pass
+
+  def do_get_lightning_invoice(self, arg):
+    """Get lightning invoice (off-chain)"""
+    [amount, memo] = arg.split(' ')
+    print(f'Getting invoice for amount: {amount}')
+    if memo:
+        print(f'With memo: {memo}')
+    try:
+      invoice = self.sdk_services.receive_payment(amount, f'Invoice for {amount} sats')
+      print('pay: ', invoice.bolt11)
+    except Exception as error:
+      # Handle error
+      print('error getting invoice: ', error)
+
+  def do_pay_lightning_invoice(self, arg):
+    # Logic to pay a lightning invoice (off-chain)
+    pass
+
+  def _print_payments(self, payments):
+    # Print the headers
+    print("ID\t\t\t\t\t\t\t\t  Type\t\t\t Time\t     [Amount & Fee](msat) Pending Description")
+    print("="*150)
+
+    # Print the details of each payment
+    for payment in payments:
+        print(f"{payment.id} | {payment.payment_type} | {payment.payment_time} | [{payment.amount_msat} {payment.fee_msat}] | {payment.pending} | {payment.description}")
+
+
+  def do_list_txs(self, arg):
+    # Logic to list payments
+    now = time.time()
+    payments = self.sdk_services.list_payments(PaymentTypeFilter.ALL, 0, now)
+    self._print_payments(payments)
+
+  def do_exit(self, arg):
+      """Exit the application."""
+      print("Goodbye!")
+      return True
 
 if __name__ == '__main__':
-  setup()
+  cli = Wallet()
+  cli.cmdloop('Welcome to the Breez SDK Wallet!\n\nType `help` or `?` to list commands.')
