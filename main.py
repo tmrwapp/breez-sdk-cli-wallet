@@ -1,5 +1,6 @@
 import os
 import time
+import math
 import bip39
 import breez_sdk
 import cmd
@@ -109,6 +110,17 @@ class Wallet(cmd.Cmd):
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
+
+  def do_send(self, args):
+    """Makes a spontaneous payment to a node
+    Usage: send <node_id> <amount>
+    """
+    [node_id, _amount] = args.split(' ')
+    amount = math.floor(float(_amount))
+    try:
+      self.sdk_services.send_spontaneous_payment(node_id, amount)
+    except Exception as error:
+      print('error sending payment: ', error)
 
   def _print_payments(self, payments):
     # Print the headers
