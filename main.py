@@ -6,6 +6,7 @@ import breez_sdk
 import cmd
 from secrets_loader import load_secrets
 from breez_sdk import PaymentTypeFilter, NodeState, LspInformation
+from info_printer import InfoPrinter
 
 # SDK events listener
 class SDKListener(breez_sdk.EventListener):
@@ -13,7 +14,7 @@ class SDKListener(breez_sdk.EventListener):
       pass
       # print(event)
 
-class Wallet(cmd.Cmd):
+class Wallet(cmd.Cmd, InfoPrinter):
   def __init__(self):
     super().__init__()
 
@@ -35,45 +36,6 @@ class Wallet(cmd.Cmd):
     # Connect to the Breez SDK make it ready for use
     self.sdk_services = breez_sdk.connect(config, seed, SDKListener())
     self.prompt = 'wallet> '
-
-  def _print_node_info(self, node: NodeState) -> None:
-    fmt_node_info = f"""
-    === Node Information ===
-    🆔 Node ID: {node.id}
-    🏗️  Block Height: {node.block_height}
-    💰 Channels Balance (msat): {node.channels_balance_msat}
-    🧳 Onchain Balance (msat): {node.onchain_balance_msat}
-    🪙 UTXOs: {node.utxos}
-    💸 Max Payable (msat): {node.max_payable_msat}
-    🧾 Max Receivable (msat): {node.max_receivable_msat}
-    📦 Max Single Payment Amount (msat): {node.max_single_payment_amount_msat}
-    🏦 Max Channel Reserve (msats): {node.max_chan_reserve_msats}
-    👥 Connected Peers: {node.connected_peers}
-    🌊 Inbound Liquidity (msats): {node.inbound_liquidity_msats}
-    """
-    print(fmt_node_info)
-
-  def _print_lsp_info(self, lsp: LspInformation) -> None:
-    lsp_pubkey_hex = bytes(lsp.lsp_pubkey).hex()
-    lsp_info = f"""
-    === LSP Information ===
-    🆔  ID: {lsp.id}
-    📛  Name: {lsp.name}
-    🌐  Widget URL: {lsp.widget_url}
-    🔑  Public Key: {lsp.pubkey}
-    🏠  Host: {lsp.host}
-    🎛️   Channel Capacity: {lsp.channel_capacity}
-    🎯  Target Confirmation: {lsp.target_conf}
-    💰  Base Fee (msat): {lsp.base_fee_msat}
-    📈  Fee Rate: {lsp.fee_rate}
-    ⏲️   Time Lock Delta: {lsp.time_lock_delta}
-    📦  Min HTLC (msat): {lsp.min_htlc_msat}
-    💸  Channel Fee per Myriad: {lsp.channel_fee_permyriad}
-    🗝️   LSP Public Key: {lsp_pubkey_hex}
-    🕒  Max Inactive Duration: {lsp.max_inactive_duration}
-    💳  Channel Minimum Fee (msat): {lsp.channel_minimum_fee_msat}
-    """
-    print(lsp_info)
 
   def do_info(self, arg):
     """Get node info"""
@@ -159,15 +121,6 @@ class Wallet(cmd.Cmd):
       self.sdk_services.send_spontaneous_payment(node_id, amount)
     except Exception as error:
       print('error sending payment: ', error)
-
-  def _print_payments(self, payments):
-    # Print the headers
-    print("ID\t\t\t\t\t\t\t\t  Type\t\t\t Time\t     [Amount & Fee](msat) Pending Description")
-    print("="*150)
-
-    # Print the details of each payment
-    for payment in payments:
-      print(f"{payment.id} | {payment.payment_type} | {payment.payment_time} | [{payment.amount_msat} {payment.fee_msat}] | {payment.pending} | {payment.description}")
 
   def do_list_txs(self, arg):
     # Logic to list payments
