@@ -5,7 +5,7 @@ import bip39
 import breez_sdk
 import cmd
 from secrets_loader import load_secrets
-from breez_sdk import PaymentTypeFilter
+from breez_sdk import LnUrlPayResult, PaymentTypeFilter
 from info_printer import InfoPrinter
 
 # SDK events listener
@@ -110,6 +110,36 @@ class Wallet(cmd.Cmd, InfoPrinter):
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
+
+  def do_lnurl_pay(self, args):
+    """Pay using LNURL-pay (off-chain)
+    Usage: lnurl_pay <url|ln_address> <amount> [memo]
+    """
+    [url, amount] = args.split(' ')[:2]
+    memo = ' '.join(args.split(' ')[2:])
+    print('\n=== Paying using LNURL-pay ===')
+    print(f'URL.....: {url}')
+    print(f'Amount..: {amount}')
+    print(f'Memo....: {memo}')
+    print('==============================')
+    try:
+      parsed_input = breez_sdk.parse_input(url)
+      if isinstance(parsed_input, breez_sdk.InputType.LN_URL_PAY):
+        min_sendable = parsed_input.data.min_sendable
+        max_sendable = parsed_input.data.max_sendable
+        sats_amount = int(amount)
+        if sats_amount > max_sendable or sats_amount < min_sendable:
+          print(f'Amount is out of range, make sure it is between {min_sendable} and {max_sendable}')
+          return
+        result = self.sdk_services.pay_lnurl(parsed_input.data, sats_amount, memo)
+        if isinstance(result, LnUrlPayResult.ENDPOINT_SUCCESS):
+          print('🎉 Payment successful!')
+        elif isinstance(result, LnUrlPayResult.ENDPOINT_ERROR):
+          print('😢 Payment failed!')
+        else:
+          print('Unknown result: ', result)
+    except Exception as error:
+      print('error paying lnurl-pay: ', error)
 
   def do_send(self, args):
     """Makes a spontaneous payment to a node
