@@ -3,14 +3,22 @@ import time
 import argparse
 import bip39
 import breez_sdk
+from threading import Thread, Event
 from secrets_loader import load_secrets
 from breez_sdk import PaymentTypeFilter
+from threading import Event
 
 # Load secrets from file
 secrets = load_secrets('secrets.txt')
 
 # Global variable to hold the SDK services
 sdk_services = None
+
+# Event object to keep the program running
+exit_event = Event()
+
+def wait_for_event(event):
+  event.wait()
 
 def sync():
   # Logic to sync node
@@ -119,8 +127,22 @@ def setup():
   config.working_dir = os.getcwd()
 
   try:
-    # Connect to the Breez SDK make it ready for use
+    # Creating background thread to wait for the exit event
+    exit_event = Event()
+    wait_thread = Thread(target=wait_for_event, args=(exit_event,))
+    wait_thread.daemon = True  # Set the thread as a daemon so it will exit when the main program does
+    wait_thread.start()
+
+    # Connect to the Breez SDK make it ready for use    
     sdk_services = breez_sdk.connect(config, seed, SDKListener())
+
+    # Getting LSP
+    lsp_id = sdk_services.lsp_id()
+    sdk_services.connect_lsp(lsp_id)
+    lsps = sdk_services.list_lsps()
+    print('lsps: ', lsps)
+    fees = sdk_services.recommended_fees()
+    print('fees: ', fees)
   except Exception as error:
     # Handle error
     print('error: ', error)
@@ -147,6 +169,8 @@ def setup():
   else:
     parser.print_help()
 
+  # Wait for the exit_event to be set
+  exit_event.wait()
 
 if __name__ == '__main__':
   setup()
