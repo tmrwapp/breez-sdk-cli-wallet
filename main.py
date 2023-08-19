@@ -5,14 +5,13 @@ import bip39
 import breez_sdk
 import cmd
 from secrets_loader import load_secrets
-from breez_sdk import LnUrlPayResult, PaymentTypeFilter
+from breez_sdk import LnUrlCallbackStatus, LnUrlPayResult, PaymentTypeFilter
 from info_printer import InfoPrinter
 
 # SDK events listener
 class SDKListener(breez_sdk.EventListener):
    def on_event(self, event):
       pass
-      # print(event)
 
 class Wallet(cmd.Cmd, InfoPrinter):
   def __init__(self):
@@ -110,6 +109,45 @@ class Wallet(cmd.Cmd, InfoPrinter):
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
+
+  def do_lnurl_withdraw(self, args):
+    """Withdraw using LNURL-withdraw (off-chain)
+    Usage: lnurl_withdraw <lnurl> <amount>
+    """
+    if len(args.split(' ')) != 2:
+      print('Usage: lnurl_withdraw <lnurl> <amount>')
+      return
+    [lnurl, amount] = args.split(' ')[:2]
+    print('\n=== Withdrawing using LNURL-withdraw ===')
+    print(f'LNURL: {lnurl}')
+    print('========================================')
+    try:
+      parsed_input = breez_sdk.parse_input(lnurl)
+      if isinstance(parsed_input, breez_sdk.InputType.LN_URL_WITHDRAW):
+        self.print_ln_url_withdraw_request_data(parsed_input.data)
+        minimum = parsed_input.data.min_withdrawable
+        maximum = parsed_input.data.max_withdrawable
+        if amount is None:
+          print(f'Please chose an amount in the range [{minimum} - {maximum}] msats')
+          return
+        amount_sats = int(amount)
+        amount_msats = int(amount) * 1E3
+        if amount_msats < minimum:
+          print('Amount is less than minimum')
+          return
+        if amount_msats > maximum:
+          print('Amount is greater than maximum')
+          return
+        print(f'⏳ *** Requesting a withdrawal of {amount_sats} sats ***')
+        result = self.sdk_services.withdraw_lnurl(parsed_input.data, amount_sats, "withdrawing using lnurl")
+        if isinstance(result, LnUrlCallbackStatus.OK):
+          print(f'🎉 You successfully withdrew {amount_sats} sats!')
+        elif isinstance(result, LnUrlCallbackStatus.ERROR):
+          print('😔 Withdraw error: ', result)
+      else:
+        print('Invalid lnurl')
+    except Exception as error:
+      print('❌ Error withdrawing using lnurl: ', error)
 
   def do_lnurl_pay(self, args):
     """Pay using LNURL-pay (off-chain)

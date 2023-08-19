@@ -52,3 +52,10 @@ class InfoPrinter():
       rows.append([payment.id, payment_type, payment.payment_time, f"{payment.amount_msat}", f"{payment.fee_msat}", payment.pending, payment.description])
     table.add_rows(rows)
     print(table.render())
+
+  def print_ln_url_withdraw_request_data(self, data):
+    print(f'🔗 Callback: {data.callback}')
+    print(f'🔑 k1: {data.k1}')
+    print(f'📄 Description: {data.default_description}')
+    print(f'💰 Range: [{data.min_withdrawable} - {data.max_withdrawable}] msats')
+
