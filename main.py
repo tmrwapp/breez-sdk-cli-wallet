@@ -2,6 +2,7 @@ import os
 import time
 import math
 import bip39
+from address_checker import AddressChecker
 import breez_sdk
 import cmd
 from secrets_loader import load_secrets
@@ -13,9 +14,11 @@ class SDKListener(breez_sdk.EventListener):
    def on_event(self, event):
       pass
 
-class Wallet(cmd.Cmd, InfoPrinter):
+class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
   def __init__(self):
     super().__init__()
+    InfoPrinter.__init__(self)
+    AddressChecker.__init__(self)
 
     # Load secrets from file
     secrets = load_secrets('secrets.txt')
@@ -80,11 +83,55 @@ class Wallet(cmd.Cmd, InfoPrinter):
     except Exception as error:
       print('Error getting refundables: ', error)
 
-  def do_send_funds(self, arg):
+  def do_pay_address(self, arg):
     """Send funds (on-chain)
+    Usage: pay_address <address> <amount>
     """
-    # Logic to send funds (on-chain)
-    pass
+    current_fees = None
+    if len(arg.split(' ')) < 3:
+      print('Usage: pay_address <address> <amount> <fee_rate>')
+      return
+    [address, amount, fee_rate] = arg.split(' ')
+
+    # Validate amount as an integer
+    if not amount.isdigit() or int(amount) < 0:
+      print('Amount must be a non-negative integer')
+      return
+    # Validate fee rate as an integer
+    if not fee_rate.isdigit() or int(fee_rate) < 0:
+      print('Fee rate must be a non-negative integer')
+      return
+    # Validate Bitcoin address
+    if not self.is_valid_address(address):
+      print(f'"{address}" is not a valid Bitcoin address')
+      return
+    # Converting amount & fee_rate to numeric values
+    amount = int(amount)
+    fee_rate = int(fee_rate)
+
+    try:
+      current_fees = self.sdk_services.fetch_reverse_swap_fees()
+      self._print_reverse_swap_info(current_fees)
+      if amount < current_fees.min:
+        print(f'❌ Amount is less than minimum ({current_fees.min} sats)')
+        return
+      if amount > current_fees.max:
+        print(f'❌ Amount is greater than maximum ({current_fees.max} sats)')
+        return
+    except Exception as error:
+      print('Error getting fees: ', error)
+
+    # Asks user for confirmation
+    print('Do you agree to pay the fees detailed above? ☝️')
+    print('Type "YES" to proceed, press any other key to cancel')
+    user_input = input()
+    if user_input.lower() != 'yes':
+      print('Operation cancelled by user')
+      return
+    try:
+      self.sdk_services.send_onchain(amount, address, current_fees.fees_hash, fee_rate)
+    except Exception as error:
+      print('Error sending on-chain: ', error)
 
   def do_get_lightning_invoice(self, arg):
     """Get lightning invoice (off-chain)"""
