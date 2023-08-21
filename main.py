@@ -82,6 +82,8 @@ class Wallet(cmd.Cmd, InfoPrinter):
       print('  -', bytes(tx_id).hex())
 
   def do_send_funds(self, arg):
+    """Send funds (on-chain)
+    """
     # Logic to send funds (on-chain)
     pass
 
@@ -180,7 +182,7 @@ class Wallet(cmd.Cmd, InfoPrinter):
       print('error paying lnurl-pay: ', error)
 
   def do_send(self, args):
-    """Makes a spontaneous payment to a node
+    """Makes a spontaneous payment (off-chain) to a node
     Usage: send <node_id> <amount>
     """
     [node_id, _amount] = args.split(' ')
