@@ -107,6 +107,7 @@ class Wallet(cmd.Cmd, InfoPrinter):
     print('\nPaying invoice.....: ', invoice)
     try:
       self.sdk_services.send_payment(invoice, None)
+      print('✅ Payment success!')
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
