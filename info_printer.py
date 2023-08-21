@@ -77,13 +77,13 @@ class InfoPrinter():
     print(f'  🚦 Status: {swap_info.status}')
     print(f'  📑 Refund TX IDs')
     for tx_id in swap_info.refund_tx_ids:
-      print('  -', bytes(tx_id).hex())
+      print('    -', tx_id)
     print(f'  🔄 Unconfirmed TX IDs')
     for tx_id in swap_info.unconfirmed_tx_ids:
-      print('  -', bytes(tx_id).hex())
+      print('    -', tx_id)
     print(f'  ✅ Confirmed TX IDs')
     for tx_id in swap_info.confirmed_tx_ids:
-      print('  -', bytes(tx_id).hex())
+      print('    -', tx_id)
     print(f'  ⬇️  Min Allowed Deposit: {swap_info.min_allowed_deposit}')
     print(f'  ⬆️  Max Allowed Deposit: {swap_info.max_allowed_deposit}')
     print(f'  ⚠️  Last Redeem Error: {swap_info.last_redeem_error}')
