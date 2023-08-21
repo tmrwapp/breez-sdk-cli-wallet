@@ -61,6 +61,25 @@ class Wallet(cmd.Cmd, InfoPrinter):
     swap_info = self.sdk_services.receive_onchain()
     self._print_swap_info(swap_info)
 
+  def do_swap_progress(self, arg):
+    """Get the progress of any in-progress swap"""
+    try:
+      swap_info = self.sdk_services.in_progress_swap()
+      if swap_info:
+        self._print_swap_info(swap_info)
+      else:
+        print('No in-progress swap')
+    except Exception as error:
+      print('Error getting swap progress: ', error)
+
+  def do_list_refundables(self, arg):
+    """List of refundable operations"""
+    try:
+      refundables = self.sdk_services.list_refundables()
+      print(refundables)
+    except Exception as error:
+      print('Error getting refundables: ', error)
+
   def do_send_funds(self, arg):
     """Send funds (on-chain)
     """
