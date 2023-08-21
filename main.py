@@ -59,27 +59,7 @@ class Wallet(cmd.Cmd, InfoPrinter):
     """Get deposit address (on-chain)"""
     # Logic to get deposit address (on-chain)
     swap_info = self.sdk_services.receive_onchain()
-    print('Bitcoin Address:', swap_info.bitcoin_address)
-    print('Payment Hash:', bytes(swap_info.payment_hash).hex())
-    print('Preimage:', bytes(swap_info.preimage).hex())
-    print('Private Key:', bytes(swap_info.private_key).hex())
-    print('Public Key:', bytes(swap_info.public_key).hex())
-    print('Script:', bytes(swap_info.script).hex())
-    print('Paid Satoshis:', swap_info.paid_sats)
-    print('Unconfirmed Satoshis:', swap_info.unconfirmed_sats)
-    print('Confirmed Satoshis:', swap_info.confirmed_sats)
-    print('Status:', swap_info.status)
-    print('Refund Transaction IDs:')
-    for tx_id in swap_info.refund_tx_ids:
-      print('  -', bytes(tx_id).hex())
-
-    print('Unconfirmed Transaction IDs:')
-    for tx_id in swap_info.unconfirmed_tx_ids:
-      print('  -', bytes(tx_id).hex())
-
-    print('Confirmed Transaction IDs:')
-    for tx_id in swap_info.confirmed_tx_ids:
-      print('  -', bytes(tx_id).hex())
+    self._print_swap_info(swap_info)
 
   def do_send_funds(self, arg):
     """Send funds (on-chain)

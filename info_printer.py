@@ -59,3 +59,32 @@ class InfoPrinter():
     print(f'📄 Description: {data.default_description}')
     print(f'💰 Range: [{data.min_withdrawable} - {data.max_withdrawable}] msats')
 
+  def _print_swap_info(self, swap_info):
+    print('🔗 Swap Information:')
+    print(f'  🏷️ Bitcoin Address: {swap_info.bitcoin_address}')
+    print(f'  🗓️ Created At: {swap_info.created_at}')
+    print(f'  🔒 Lock Height: {swap_info.lock_height}')
+    print(f'  📦 Payment Hash: {bytes(swap_info.payment_hash).hex()}')
+    print(f'  🔑 Preimage: {bytes(swap_info.preimage).hex()}')
+    print(f'  🧊 Private Key: {bytes(swap_info.private_key).hex()}')
+    print(f'  📝 Public Key: {bytes(swap_info.public_key).hex()}')
+    print(f'  🔄 Swapper Public Key: {bytes(swap_info.swapper_public_key).hex()}')
+    print(f'  📜 Script: {bytes(swap_info.script).hex()}')
+    print(f'  ⚡ Bolt11: {swap_info.bolt11}')
+    print(f'  💸 Paid Sats: {swap_info.paid_sats}')
+    print(f'  🔄 Unconfirmed Sats: {swap_info.unconfirmed_sats}')
+    print(f'  ✅ Confirmed Sats: {swap_info.confirmed_sats}')
+    print(f'  🚦 Status: {swap_info.status}')
+    print(f'  📑 Refund TX IDs')
+    for tx_id in swap_info.refund_tx_ids:
+      print('  -', bytes(tx_id).hex())
+    print(f'  🔄 Unconfirmed TX IDs')
+    for tx_id in swap_info.unconfirmed_tx_ids:
+      print('  -', bytes(tx_id).hex())
+    print(f'  ✅ Confirmed TX IDs')
+    for tx_id in swap_info.confirmed_tx_ids:
+      print('  -', bytes(tx_id).hex())
+    print(f'  ⬇️  Min Allowed Deposit: {swap_info.min_allowed_deposit}')
+    print(f'  ⬆️  Max Allowed Deposit: {swap_info.max_allowed_deposit}')
+    print(f'  ⚠️  Last Redeem Error: {swap_info.last_redeem_error}')
+
