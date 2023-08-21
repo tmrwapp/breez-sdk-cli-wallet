@@ -88,7 +88,7 @@ class InfoPrinter():
     print(f'  ⬆️  Max Allowed Deposit: {swap_info.max_allowed_deposit}')
     print(f'  ⚠️  Last Redeem Error: {swap_info.last_redeem_error}')
 
-  def _print_reverse_swap_info(self, info):
+  def _print_reverse_swap_pair_info(self, info):
     print('🔄 Reverse Swap Pair Information:')
     print(f'⬇️  Min: {info.min} sats')
     print(f'⬆️  Max: {info.max} sats')
@@ -96,3 +96,10 @@ class InfoPrinter():
     print(f'📊 Fees Percentage: {info.fees_percentage}')
     print(f'🔒 Fees Lockup: {info.fees_lockup}')
     print(f'🏷️  Fees Claim: {info.fees_claim}')
+
+  def _print_reverse_swap_info(self, info):
+      print('🔄 Reverse Swap Information:')
+      print(f'🆔 ID: {info.id}')
+      print(f'🔑 Claim Public Key: {info.claim_pubkey}')
+      print(f'💰 On-chain Amount (Sat): {info.onchain_amount_sat}')
+      print(f'🚦 Status: {info.status}')

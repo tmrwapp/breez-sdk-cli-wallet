@@ -111,7 +111,7 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
 
     try:
       current_fees = self.sdk_services.fetch_reverse_swap_fees()
-      self._print_reverse_swap_info(current_fees)
+      self._print_reverse_swap_pair_info(current_fees)
       if amount < current_fees.min:
         print(f'❌ Amount is less than minimum ({current_fees.min} sats)')
         return
@@ -132,6 +132,18 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
       self.sdk_services.send_onchain(amount, address, current_fees.fees_hash, fee_rate)
     except Exception as error:
       print('Error sending on-chain: ', error)
+
+  def do_reverse_swap_progress(self, arg):
+    """Get the progress of any in-progress reverse swap"""
+    try:
+      reverse_swaps = self.sdk_services.in_progress_reverse_swaps()
+      if len(reverse_swaps) == 0:
+        print('🤷‍♂️ No in-progress reverse swaps')
+        return
+      for reverse_swap in reverse_swaps:
+        self._print_reverse_swap_info(reverse_swap)
+    except Exception as error:
+      print('Error getting reverse swap progress: ', error)
 
   def do_get_lightning_invoice(self, arg):
     """Get lightning invoice (off-chain)"""
