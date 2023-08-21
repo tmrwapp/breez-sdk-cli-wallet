@@ -47,7 +47,7 @@ class Wallet(cmd.Cmd, InfoPrinter):
     except Exception as error:
       print('Error getting LSP info: ', error)
 
-  def do_get_balance(self, arg):
+  def do_balance(self, arg):
     """Get balance"""
     # Logic to get balance
     node_info = self.sdk_services.node_info()
