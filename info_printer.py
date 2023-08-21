@@ -98,8 +98,8 @@ class InfoPrinter():
     print(f'🏷️  Fees Claim: {info.fees_claim}')
 
   def _print_reverse_swap_info(self, info):
-      print('🔄 Reverse Swap Information:')
-      print(f'🆔 ID: {info.id}')
-      print(f'🔑 Claim Public Key: {info.claim_pubkey}')
-      print(f'💰 On-chain Amount (Sat): {info.onchain_amount_sat}')
-      print(f'🚦 Status: {info.status}')
+    print('🔄 Reverse Swap Information:')
+    print(f'🆔 ID: {info.id}')
+    print(f'🔑 Claim Public Key: {info.claim_pubkey}')
+    print(f'💰 On-chain Amount (Sat): {info.onchain_amount_sat}')
+    print(f'🚦 Status: {info.status}')
