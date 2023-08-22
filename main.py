@@ -10,9 +10,15 @@ from breez_sdk import LnUrlCallbackStatus, LnUrlPayResult, PaymentTypeFilter
 from info_printer import InfoPrinter
 
 # SDK events listener
-class SDKListener(breez_sdk.EventListener):
-   def on_event(self, event):
-      pass
+class SDKListener(breez_sdk.EventListener, InfoPrinter):
+  def on_event(self, event):
+    if isinstance(event, breez_sdk.BreezEvent.INVOICE_PAID):
+      self._print_invoice_paid(event)
+    elif isinstance(event, breez_sdk.BreezEvent.PAYMENT_SUCCEED):
+      print('Payment succeeded: ', event.payment_sent, '\n')
+    elif isinstance(event, breez_sdk.BreezEvent.PAYMENT_FAILED):
+      print('Payment failed: ', event.payment_received, '\n')
+
 
 class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
   def __init__(self):
@@ -145,15 +151,23 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     except Exception as error:
       print('Error getting reverse swap progress: ', error)
 
-  def do_get_lightning_invoice(self, arg):
-    """Get lightning invoice (off-chain)"""
-    [amount, memo] = arg.split(' ')
+  def do_get_invoice(self, arg):
+    """Get lightning invoice (off-chain)
+    Usage: get_invoice <amount> [memo]
+    """
+    memo = ''
+    amount = arg.split(' ')[0]
+    if not amount.isdigit() or int(amount) < 0:
+      print('Amount must be a non-negative integer')
+      return
+    if len(arg.split(' ')) > 1:
+      memo = ' '.join(arg.split(' ')[1:])
     print(f'Getting invoice for amount: {amount}')
     if memo:
         print(f'With memo: {memo}')
     try:
-      invoice = self.sdk_services.receive_payment(amount, f'Invoice for {amount} sats')
-      print('pay: ', invoice.bolt11)
+      invoice = self.sdk_services.receive_payment(amount, memo)
+      print('Pay: ', invoice.bolt11)
     except Exception as error:
       # Handle error
       print('error getting invoice: ', error)

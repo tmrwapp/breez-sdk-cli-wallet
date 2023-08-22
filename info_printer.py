@@ -103,3 +103,9 @@ class InfoPrinter():
     print(f'🔑 Claim Public Key: {info.claim_pubkey}')
     print(f'💰 On-chain Amount (Sat): {info.onchain_amount_sat}')
     print(f'🚦 Status: {info.status}')
+
+  def _print_invoice_paid(self, invoice_paid):
+    print('✅ Invoice Paid')
+    # TODO: Parse the bolt11 invoice and obtain the amount
+    # print(f'📦 Payment Hash: {invoice_paid.details.payment_hash}')
+    # print(f'⚡ Bolt 11: {invoice_paid.details.bolt11}')
