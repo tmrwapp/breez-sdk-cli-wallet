@@ -104,8 +104,28 @@ class InfoPrinter():
     print(f'💰 On-chain Amount (Sat): {info.onchain_amount_sat}')
     print(f'🚦 Status: {info.status}')
 
-  def _print_invoice_paid(self, invoice_paid):
-    print('✅ Invoice Paid')
+  def _print_invoice_paid(self, event):
+    print('✅ Got sats!\n')
     # TODO: Parse the bolt11 invoice and obtain the amount
     # print(f'📦 Payment Hash: {invoice_paid.details.payment_hash}')
     # print(f'⚡ Bolt 11: {invoice_paid.details.bolt11}')
+  
+  def _print_payment_succeeded(self, event):
+    print('✅ Paid sats!')
+    payment = event.details
+    print('💳 Payment Information:')
+    print(f'🆔 ID: {payment.id}')
+    print(f'📝 Payment Type: {payment.payment_type}')
+    print(f'🕒 Payment Time: {payment.payment_time}')
+    print(f'💰 Amount (msat): {payment.amount_msat}')
+    print(f'💸 Fee (msat): {payment.fee_msat}')
+    print(f'⏳ Pending: {payment.pending}')
+    print(f'🗒️ Description: {payment.description}')
+    # print(f'🔍 Details: {payment.details}')
+
+  def _print_payment_failed_data(event):
+    failed_data = event.details
+    print('❌ Payment Failed Information:')
+    print(f'🚫 Error: {failed_data.error}')
+    print(f'📡 Node ID: {failed_data.node_id}')
+    print(f'🧾 Invoice: {failed_data.invoice}')

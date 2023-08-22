@@ -15,9 +15,9 @@ class SDKListener(breez_sdk.EventListener, InfoPrinter):
     if isinstance(event, breez_sdk.BreezEvent.INVOICE_PAID):
       self._print_invoice_paid(event)
     elif isinstance(event, breez_sdk.BreezEvent.PAYMENT_SUCCEED):
-      print('Payment succeeded: ', event.payment_sent, '\n')
+      self._print_payment_succeeded(event)
     elif isinstance(event, breez_sdk.BreezEvent.PAYMENT_FAILED):
-      print('Payment failed: ', event.payment_received, '\n')
+      self._print_payment_failed_data(event)
 
 
 class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
@@ -179,10 +179,9 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     Usage: pay_invoice <invoice>
     """
     invoice = args.strip()
-    print('\nPaying invoice.....: ', invoice)
+    print('Please wait... ⏳')
     try:
       self.sdk_services.send_payment(invoice, None)
-      print('✅ Payment success!')
     except Exception as error:
       # Handle error
       print('error paying invoice: ', error)
