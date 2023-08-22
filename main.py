@@ -62,7 +62,9 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     node_info = self.sdk_services.node_info()
     ln_balance = node_info.channels_balance_msat
     onchain_balance = node_info.onchain_balance_msat
-    print('Lightning balance: ', ln_balance, ' millisatoshis, On-chain balance: ', onchain_balance, ' millisatoshis')
+    print('*** Balances (msats) ***')
+    print('⚡ Lightning : ', ln_balance)
+    print('🔗 On-Chain  : ', onchain_balance)
 
   def do_get_deposit_address(self, arg):
     """Get deposit address (on-chain)"""
