@@ -39,7 +39,7 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
         breez_sdk.NodeConfig.GREENLIGHT(breez_sdk.GreenlightNodeConfig(None, invite_code)))
 
     # Customize the config object according to your needs
-    config.working_dir = os.getcwd()
+    config.working_dir = os.getcwd()+"/tmp"
 
     # Connect to the Breez SDK make it ready for use
     self.sdk_services = breez_sdk.connect(config, seed, SDKListener())
@@ -168,7 +168,9 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     if memo:
         print(f'With memo: {memo}')
     try:
-      invoice = self.sdk_services.receive_payment(amount, memo)
+      request = breez_sdk.ReceivePaymentRequest(amount_sats=int(amount), description=memo, preimage=None,
+                                                opening_fee_params=None)
+      invoice = self.sdk_services.receive_payment(req_data=request)
       print('Pay: ', invoice.bolt11)
     except Exception as error:
       # Handle error

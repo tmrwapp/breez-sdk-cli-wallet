@@ -38,14 +38,14 @@ class RustBuffer(ctypes.Structure):
 
     @staticmethod
     def alloc(size):
-        return rust_call(_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_alloc, size)
+        return rust_call(_UniFFILib.ffi_breez_sdk_715c_rustbuffer_alloc, size)
 
     @staticmethod
     def reserve(rbuf, additional):
-        return rust_call(_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_reserve, rbuf, additional)
+        return rust_call(_UniFFILib.ffi_breez_sdk_715c_rustbuffer_reserve, rbuf, additional)
 
     def free(self):
-        return rust_call(_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_free, self)
+        return rust_call(_UniFFILib.ffi_breez_sdk_715c_rustbuffer_free, self)
 
     def __str__(self):
         return "RustBuffer(capacity={}, len={}, data={})".format(
@@ -344,178 +344,184 @@ def loadIndirect():
 # This is an implementation detail which will be called internally by the public API.
 
 _UniFFILib = loadIndirect()
-_UniFFILib.ffi_breez_sdk_ddf3_BlockingBreezServices_object_free.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_BlockingBreezServices_object_free.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_BlockingBreezServices_object_free.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_disconnect.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_BlockingBreezServices_object_free.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_disconnect.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_disconnect.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_payment.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_disconnect.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_payment.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
-    RustBuffer,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_payment.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_spontaneous_payment.argtypes = (
-    ctypes.c_void_p,
-    RustBuffer,
-    ctypes.c_uint64,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_spontaneous_payment.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_payment.argtypes = (
-    ctypes.c_void_p,
-    ctypes.c_uint64,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_payment.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_pay_lnurl.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_payment.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_spontaneous_payment.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.c_uint64,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_spontaneous_payment.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_payment.argtypes = (
+    ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_pay_lnurl.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_withdraw_lnurl.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_payment.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_pay_lnurl.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.c_uint64,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_withdraw_lnurl.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lnurl_auth.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_pay_lnurl.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_withdraw_lnurl.argtypes = (
+    ctypes.c_void_p,
+    RustBuffer,
+    ctypes.c_uint64,
+    RustBuffer,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_withdraw_lnurl.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lnurl_auth.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lnurl_auth.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_node_info.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lnurl_auth.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_node_info.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_node_info.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sign_message.argtypes = (
-    ctypes.c_void_p,
-    RustBuffer,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sign_message.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_check_message.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_node_info.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sign_message.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_check_message.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup_status.argtypes = (
-    ctypes.c_void_p,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup_status.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup.argtypes = (
-    ctypes.c_void_p,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_payment_by_hash.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sign_message.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_check_message.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_payment_by_hash.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_payments.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_check_message.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup_status.argtypes = (
+    ctypes.c_void_p,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup_status.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup.argtypes = (
+    ctypes.c_void_p,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_payment_by_hash.argtypes = (
+    ctypes.c_void_p,
+    RustBuffer,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_payment_by_hash.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_payments.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     RustBuffer,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_payments.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sweep.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_payments.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sweep.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.c_uint64,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sweep.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_fiat_rates.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sweep.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_fiat_rates.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_fiat_rates.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_fiat_currencies.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_fiat_rates.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_fiat_currencies.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_fiat_currencies.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_lsps.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_fiat_currencies.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_lsps.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_lsps.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_connect_lsp.argtypes = (
-    ctypes.c_void_p,
-    RustBuffer,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_connect_lsp.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_lsp_info.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_lsps.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_connect_lsp.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_lsp_info.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lsp_id.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_connect_lsp.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_lsp_info.argtypes = (
+    ctypes.c_void_p,
+    RustBuffer,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_lsp_info.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_id.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lsp_id.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_close_lsp_channels.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_id.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_info.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_close_lsp_channels.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_onchain.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_info.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_close_lsp_channels.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_onchain.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_swap.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_close_lsp_channels.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_onchain.argtypes = (
+    ctypes.c_void_p,
+    RustBuffer,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_onchain.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_swap.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_swap.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_refundables.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_swap.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_refundables.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_refundables.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_refund.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_refundables.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_refund.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     RustBuffer,
     ctypes.c_uint32,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_refund.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_reverse_swap_fees.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_refund.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_reverse_swap_fees.argtypes = (
+    ctypes.c_void_p,
+    RustBuffer,
+    ctypes.POINTER(RustCallStatus),
+)
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_reverse_swap_fees.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_reverse_swaps.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_reverse_swap_fees.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_reverse_swaps.argtypes = (
-    ctypes.c_void_p,
-    ctypes.POINTER(RustCallStatus),
-)
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_reverse_swaps.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_onchain.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_reverse_swaps.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_onchain.argtypes = (
     ctypes.c_void_p,
     ctypes.c_uint64,
     RustBuffer,
@@ -523,94 +529,94 @@ _UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_onchain.argtypes = (
     ctypes.c_uint64,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_onchain.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_execute_dev_command.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_onchain.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_execute_dev_command.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_execute_dev_command.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sync.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_execute_dev_command.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sync.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sync.restype = None
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_recommended_fees.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_sync.restype = None
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_recommended_fees.argtypes = (
     ctypes.c_void_p,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_recommended_fees.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_buy_bitcoin.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_recommended_fees.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_buy_bitcoin.argtypes = (
     ctypes.c_void_p,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_buy_bitcoin.restype = RustBuffer
-_UniFFILib.ffi_breez_sdk_ddf3_LogStream_init_callback.argtypes = (
+_UniFFILib.breez_sdk_715c_BlockingBreezServices_buy_bitcoin.restype = RustBuffer
+_UniFFILib.ffi_breez_sdk_715c_LogStream_init_callback.argtypes = (
     FOREIGN_CALLBACK_T,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_LogStream_init_callback.restype = None
-_UniFFILib.ffi_breez_sdk_ddf3_EventListener_init_callback.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_LogStream_init_callback.restype = None
+_UniFFILib.ffi_breez_sdk_715c_EventListener_init_callback.argtypes = (
     FOREIGN_CALLBACK_T,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_EventListener_init_callback.restype = None
-_UniFFILib.breez_sdk_ddf3_connect.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_EventListener_init_callback.restype = None
+_UniFFILib.breez_sdk_715c_connect.argtypes = (
     RustBuffer,
     RustBuffer,
     ctypes.c_uint64,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_connect.restype = ctypes.c_void_p
-_UniFFILib.breez_sdk_ddf3_set_log_stream.argtypes = (
+_UniFFILib.breez_sdk_715c_connect.restype = ctypes.c_void_p
+_UniFFILib.breez_sdk_715c_set_log_stream.argtypes = (
     ctypes.c_uint64,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_set_log_stream.restype = None
-_UniFFILib.breez_sdk_ddf3_parse_invoice.argtypes = (
+_UniFFILib.breez_sdk_715c_set_log_stream.restype = None
+_UniFFILib.breez_sdk_715c_parse_invoice.argtypes = (
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_parse_invoice.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_parse_input.argtypes = (
+_UniFFILib.breez_sdk_715c_parse_invoice.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_parse_input.argtypes = (
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_parse_input.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_mnemonic_to_seed.argtypes = (
+_UniFFILib.breez_sdk_715c_parse_input.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_mnemonic_to_seed.argtypes = (
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_mnemonic_to_seed.restype = RustBuffer
-_UniFFILib.breez_sdk_ddf3_default_config.argtypes = (
+_UniFFILib.breez_sdk_715c_mnemonic_to_seed.restype = RustBuffer
+_UniFFILib.breez_sdk_715c_default_config.argtypes = (
     RustBuffer,
     RustBuffer,
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.breez_sdk_ddf3_default_config.restype = RustBuffer
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_alloc.argtypes = (
+_UniFFILib.breez_sdk_715c_default_config.restype = RustBuffer
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_alloc.argtypes = (
     ctypes.c_int32,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_alloc.restype = RustBuffer
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_from_bytes.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_alloc.restype = RustBuffer
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_from_bytes.argtypes = (
     ForeignBytes,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_from_bytes.restype = RustBuffer
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_free.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_from_bytes.restype = RustBuffer
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_free.argtypes = (
     RustBuffer,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_free.restype = None
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_reserve.argtypes = (
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_free.restype = None
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_reserve.argtypes = (
     RustBuffer,
     ctypes.c_int32,
     ctypes.POINTER(RustCallStatus),
 )
-_UniFFILib.ffi_breez_sdk_ddf3_rustbuffer_reserve.restype = RustBuffer
+_UniFFILib.ffi_breez_sdk_715c_rustbuffer_reserve.restype = RustBuffer
 
 # Public interface members begin here.
 
@@ -729,7 +735,7 @@ class BlockingBreezServices(object):
         # In case of partial initialization of instances.
         pointer = getattr(self, "_pointer", None)
         if pointer is not None:
-            rust_call(_UniFFILib.ffi_breez_sdk_ddf3_BlockingBreezServices_object_free, pointer)
+            rust_call(_UniFFILib.ffi_breez_sdk_715c_BlockingBreezServices_object_free, pointer)
 
     # Used by alternative constructors or any methods which return this type.
     @classmethod
@@ -744,7 +750,7 @@ class BlockingBreezServices(object):
 
     def disconnect(self, ):
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_disconnect,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_disconnect,self._pointer,)
     
     def send_payment(self, bolt11,amount_sats):
         bolt11 = bolt11
@@ -753,7 +759,7 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypePayment.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_payment,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_payment,self._pointer,
         FfiConverterString.lower(bolt11),
         FfiConverterOptionalUInt64.lower(amount_sats))
         )
@@ -764,20 +770,17 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypePayment.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_spontaneous_payment,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_spontaneous_payment,self._pointer,
         FfiConverterString.lower(node_id),
         FfiConverterUInt64.lower(amount_sats))
         )
-    def receive_payment(self, amount_sats,description):
-        amount_sats = int(amount_sats)
+    def receive_payment(self, req_data):
+        req_data = req_data
         
-        description = description
-        
-        return FfiConverterTypeLnInvoice.lift(
+        return FfiConverterTypeReceivePaymentResponse.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_payment,self._pointer,
-        FfiConverterUInt64.lower(amount_sats),
-        FfiConverterString.lower(description))
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_payment,self._pointer,
+        FfiConverterTypeReceivePaymentRequest.lower(req_data))
         )
     def pay_lnurl(self, req_data,amount_sats,comment):
         req_data = req_data
@@ -788,7 +791,7 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypeLnUrlPayResult.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_pay_lnurl,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_pay_lnurl,self._pointer,
         FfiConverterTypeLnUrlPayRequestData.lower(req_data),
         FfiConverterUInt64.lower(amount_sats),
         FfiConverterOptionalString.lower(comment))
@@ -802,7 +805,7 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypeLnUrlCallbackStatus.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_withdraw_lnurl,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_withdraw_lnurl,self._pointer,
         FfiConverterTypeLnUrlWithdrawRequestData.lower(req_data),
         FfiConverterUInt64.lower(amount_sats),
         FfiConverterOptionalString.lower(description))
@@ -812,20 +815,20 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypeLnUrlCallbackStatus.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lnurl_auth,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_lnurl_auth,self._pointer,
         FfiConverterTypeLnUrlAuthRequestData.lower(req_data))
         )
     def node_info(self, ):
         return FfiConverterTypeNodeState.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_node_info,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_node_info,self._pointer,)
         )
     def sign_message(self, request):
         request = request
         
         return FfiConverterTypeSignMessageResponse.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sign_message,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_sign_message,self._pointer,
         FfiConverterTypeSignMessageRequest.lower(request))
         )
     def check_message(self, request):
@@ -833,24 +836,24 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypeCheckMessageResponse.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_check_message,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_check_message,self._pointer,
         FfiConverterTypeCheckMessageRequest.lower(request))
         )
     def backup_status(self, ):
         return FfiConverterTypeBackupStatus.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup_status,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup_status,self._pointer,)
         )
     def backup(self, ):
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_backup,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_backup,self._pointer,)
     
     def payment_by_hash(self, hash):
         hash = hash
         
         return FfiConverterOptionalTypePayment.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_payment_by_hash,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_payment_by_hash,self._pointer,
         FfiConverterString.lower(hash))
         )
     def list_payments(self, filter,from_timestamp,to_timestamp):
@@ -862,7 +865,7 @@ class BlockingBreezServices(object):
         
         return FfiConverterSequenceTypePayment.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_payments,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_payments,self._pointer,
         FfiConverterTypePaymentTypeFilter.lower(filter),
         FfiConverterOptionalInt64.lower(from_timestamp),
         FfiConverterOptionalInt64.lower(to_timestamp))
@@ -873,30 +876,30 @@ class BlockingBreezServices(object):
         fee_rate_sats_per_vbyte = int(fee_rate_sats_per_vbyte)
         
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sweep,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_sweep,self._pointer,
         FfiConverterString.lower(to_address),
         FfiConverterUInt64.lower(fee_rate_sats_per_vbyte))
     
     def fetch_fiat_rates(self, ):
         return FfiConverterSequenceTypeRate.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_fiat_rates,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_fiat_rates,self._pointer,)
         )
     def list_fiat_currencies(self, ):
         return FfiConverterSequenceTypeFiatCurrency.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_fiat_currencies,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_fiat_currencies,self._pointer,)
         )
     def list_lsps(self, ):
         return FfiConverterSequenceTypeLspInformation.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_lsps,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_lsps,self._pointer,)
         )
     def connect_lsp(self, lsp_id):
         lsp_id = lsp_id
         
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_connect_lsp,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_connect_lsp,self._pointer,
         FfiConverterString.lower(lsp_id))
     
     def fetch_lsp_info(self, lsp_id):
@@ -904,32 +907,40 @@ class BlockingBreezServices(object):
         
         return FfiConverterOptionalTypeLspInformation.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_lsp_info,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_lsp_info,self._pointer,
         FfiConverterString.lower(lsp_id))
         )
     def lsp_id(self, ):
         return FfiConverterOptionalString.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_lsp_id,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_id,self._pointer,)
+        )
+    def lsp_info(self, ):
+        return FfiConverterTypeLspInformation.lift(
+            rust_call_with_error(
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_lsp_info,self._pointer,)
         )
     def close_lsp_channels(self, ):
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_close_lsp_channels,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_close_lsp_channels,self._pointer,)
     
-    def receive_onchain(self, ):
+    def receive_onchain(self, req):
+        req = req
+        
         return FfiConverterTypeSwapInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_receive_onchain,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_receive_onchain,self._pointer,
+        FfiConverterTypeReceiveOnchainRequest.lower(req))
         )
     def in_progress_swap(self, ):
         return FfiConverterOptionalTypeSwapInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_swap,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_swap,self._pointer,)
         )
     def list_refundables(self, ):
         return FfiConverterSequenceTypeSwapInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_list_refundables,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_list_refundables,self._pointer,)
         )
     def refund(self, swap_address,to_address,sat_per_vbyte):
         swap_address = swap_address
@@ -940,20 +951,23 @@ class BlockingBreezServices(object):
         
         return FfiConverterString.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_refund,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_refund,self._pointer,
         FfiConverterString.lower(swap_address),
         FfiConverterString.lower(to_address),
         FfiConverterUInt32.lower(sat_per_vbyte))
         )
-    def fetch_reverse_swap_fees(self, ):
+    def fetch_reverse_swap_fees(self, req):
+        req = req
+        
         return FfiConverterTypeReverseSwapPairInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_fetch_reverse_swap_fees,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_fetch_reverse_swap_fees,self._pointer,
+        FfiConverterTypeReverseSwapFeesRequest.lower(req))
         )
     def in_progress_reverse_swaps(self, ):
         return FfiConverterSequenceTypeReverseSwapInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_in_progress_reverse_swaps,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_in_progress_reverse_swaps,self._pointer,)
         )
     def send_onchain(self, amount_sat,onchain_recipient_address,pair_hash,sat_per_vbyte):
         amount_sat = int(amount_sat)
@@ -966,7 +980,7 @@ class BlockingBreezServices(object):
         
         return FfiConverterTypeReverseSwapInfo.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_send_onchain,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_send_onchain,self._pointer,
         FfiConverterUInt64.lower(amount_sat),
         FfiConverterString.lower(onchain_recipient_address),
         FfiConverterString.lower(pair_hash),
@@ -977,25 +991,25 @@ class BlockingBreezServices(object):
         
         return FfiConverterString.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_execute_dev_command,self._pointer,
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_execute_dev_command,self._pointer,
         FfiConverterString.lower(command))
         )
     def sync(self, ):
         rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_sync,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_sync,self._pointer,)
     
     def recommended_fees(self, ):
         return FfiConverterTypeRecommendedFees.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_recommended_fees,self._pointer,)
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_recommended_fees,self._pointer,)
         )
-    def buy_bitcoin(self, provider):
-        provider = provider
+    def buy_bitcoin(self, req):
+        req = req
         
-        return FfiConverterString.lift(
+        return FfiConverterTypeBuyBitcoinResponse.lift(
             rust_call_with_error(
-    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_BlockingBreezServices_buy_bitcoin,self._pointer,
-        FfiConverterTypeBuyBitcoinProvider.lower(provider))
+    FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_BlockingBreezServices_buy_bitcoin,self._pointer,
+        FfiConverterTypeBuyBitcoinRequest.lower(req))
         )
     
 
@@ -1151,6 +1165,66 @@ class FfiConverterTypeBitcoinAddressData(FfiConverterRustBuffer):
         FfiConverterOptionalUInt64.write(value.amount_sat, buf)
         FfiConverterOptionalString.write(value.label, buf)
         FfiConverterOptionalString.write(value.message, buf)
+
+
+class BuyBitcoinRequest:
+
+    def __init__(self, provider, opening_fee_params):
+        self.provider = provider
+        self.opening_fee_params = opening_fee_params
+
+    def __str__(self):
+        return "BuyBitcoinRequest(provider={}, opening_fee_params={})".format(self.provider, self.opening_fee_params)
+
+    def __eq__(self, other):
+        if self.provider != other.provider:
+            return False
+        if self.opening_fee_params != other.opening_fee_params:
+            return False
+        return True
+
+class FfiConverterTypeBuyBitcoinRequest(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return BuyBitcoinRequest(
+            provider=FfiConverterTypeBuyBitcoinProvider.read(buf),
+            opening_fee_params=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterTypeBuyBitcoinProvider.write(value.provider, buf)
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.opening_fee_params, buf)
+
+
+class BuyBitcoinResponse:
+
+    def __init__(self, url, opening_fee_params):
+        self.url = url
+        self.opening_fee_params = opening_fee_params
+
+    def __str__(self):
+        return "BuyBitcoinResponse(url={}, opening_fee_params={})".format(self.url, self.opening_fee_params)
+
+    def __eq__(self, other):
+        if self.url != other.url:
+            return False
+        if self.opening_fee_params != other.opening_fee_params:
+            return False
+        return True
+
+class FfiConverterTypeBuyBitcoinResponse(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return BuyBitcoinResponse(
+            url=FfiConverterString.read(buf),
+            opening_fee_params=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterString.write(value.url, buf)
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.opening_fee_params, buf)
 
 
 class CheckMessageRequest:
@@ -1885,7 +1959,7 @@ class FfiConverterTypeLogEntry(FfiConverterRustBuffer):
 
 class LspInformation:
 
-    def __init__(self, id, name, widget_url, pubkey, host, channel_capacity, target_conf, base_fee_msat, fee_rate, time_lock_delta, min_htlc_msat, channel_fee_permyriad, lsp_pubkey, max_inactive_duration, channel_minimum_fee_msat):
+    def __init__(self, id, name, widget_url, pubkey, host, channel_capacity, target_conf, base_fee_msat, fee_rate, time_lock_delta, min_htlc_msat, lsp_pubkey, opening_fee_params_list):
         self.id = id
         self.name = name
         self.widget_url = widget_url
@@ -1897,13 +1971,11 @@ class LspInformation:
         self.fee_rate = fee_rate
         self.time_lock_delta = time_lock_delta
         self.min_htlc_msat = min_htlc_msat
-        self.channel_fee_permyriad = channel_fee_permyriad
         self.lsp_pubkey = lsp_pubkey
-        self.max_inactive_duration = max_inactive_duration
-        self.channel_minimum_fee_msat = channel_minimum_fee_msat
+        self.opening_fee_params_list = opening_fee_params_list
 
     def __str__(self):
-        return "LspInformation(id={}, name={}, widget_url={}, pubkey={}, host={}, channel_capacity={}, target_conf={}, base_fee_msat={}, fee_rate={}, time_lock_delta={}, min_htlc_msat={}, channel_fee_permyriad={}, lsp_pubkey={}, max_inactive_duration={}, channel_minimum_fee_msat={})".format(self.id, self.name, self.widget_url, self.pubkey, self.host, self.channel_capacity, self.target_conf, self.base_fee_msat, self.fee_rate, self.time_lock_delta, self.min_htlc_msat, self.channel_fee_permyriad, self.lsp_pubkey, self.max_inactive_duration, self.channel_minimum_fee_msat)
+        return "LspInformation(id={}, name={}, widget_url={}, pubkey={}, host={}, channel_capacity={}, target_conf={}, base_fee_msat={}, fee_rate={}, time_lock_delta={}, min_htlc_msat={}, lsp_pubkey={}, opening_fee_params_list={})".format(self.id, self.name, self.widget_url, self.pubkey, self.host, self.channel_capacity, self.target_conf, self.base_fee_msat, self.fee_rate, self.time_lock_delta, self.min_htlc_msat, self.lsp_pubkey, self.opening_fee_params_list)
 
     def __eq__(self, other):
         if self.id != other.id:
@@ -1928,13 +2000,9 @@ class LspInformation:
             return False
         if self.min_htlc_msat != other.min_htlc_msat:
             return False
-        if self.channel_fee_permyriad != other.channel_fee_permyriad:
-            return False
         if self.lsp_pubkey != other.lsp_pubkey:
             return False
-        if self.max_inactive_duration != other.max_inactive_duration:
-            return False
-        if self.channel_minimum_fee_msat != other.channel_minimum_fee_msat:
+        if self.opening_fee_params_list != other.opening_fee_params_list:
             return False
         return True
 
@@ -1953,10 +2021,8 @@ class FfiConverterTypeLspInformation(FfiConverterRustBuffer):
             fee_rate=FfiConverterDouble.read(buf),
             time_lock_delta=FfiConverterUInt32.read(buf),
             min_htlc_msat=FfiConverterInt64.read(buf),
-            channel_fee_permyriad=FfiConverterInt64.read(buf),
             lsp_pubkey=FfiConverterSequenceUInt8.read(buf),
-            max_inactive_duration=FfiConverterInt64.read(buf),
-            channel_minimum_fee_msat=FfiConverterInt64.read(buf),
+            opening_fee_params_list=FfiConverterTypeOpeningFeeParamsMenu.read(buf),
         )
 
     @staticmethod
@@ -1972,10 +2038,8 @@ class FfiConverterTypeLspInformation(FfiConverterRustBuffer):
         FfiConverterDouble.write(value.fee_rate, buf)
         FfiConverterUInt32.write(value.time_lock_delta, buf)
         FfiConverterInt64.write(value.min_htlc_msat, buf)
-        FfiConverterInt64.write(value.channel_fee_permyriad, buf)
         FfiConverterSequenceUInt8.write(value.lsp_pubkey, buf)
-        FfiConverterInt64.write(value.max_inactive_duration, buf)
-        FfiConverterInt64.write(value.channel_minimum_fee_msat, buf)
+        FfiConverterTypeOpeningFeeParamsMenu.write(value.opening_fee_params_list, buf)
 
 
 class MessageSuccessActionData:
@@ -2108,6 +2172,81 @@ class FfiConverterTypeNodeState(FfiConverterRustBuffer):
         FfiConverterUInt64.write(value.inbound_liquidity_msats, buf)
 
 
+class OpeningFeeParams:
+
+    def __init__(self, min_msat, proportional, valid_until, max_idle_time, max_client_to_self_delay, promise):
+        self.min_msat = min_msat
+        self.proportional = proportional
+        self.valid_until = valid_until
+        self.max_idle_time = max_idle_time
+        self.max_client_to_self_delay = max_client_to_self_delay
+        self.promise = promise
+
+    def __str__(self):
+        return "OpeningFeeParams(min_msat={}, proportional={}, valid_until={}, max_idle_time={}, max_client_to_self_delay={}, promise={})".format(self.min_msat, self.proportional, self.valid_until, self.max_idle_time, self.max_client_to_self_delay, self.promise)
+
+    def __eq__(self, other):
+        if self.min_msat != other.min_msat:
+            return False
+        if self.proportional != other.proportional:
+            return False
+        if self.valid_until != other.valid_until:
+            return False
+        if self.max_idle_time != other.max_idle_time:
+            return False
+        if self.max_client_to_self_delay != other.max_client_to_self_delay:
+            return False
+        if self.promise != other.promise:
+            return False
+        return True
+
+class FfiConverterTypeOpeningFeeParams(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return OpeningFeeParams(
+            min_msat=FfiConverterUInt64.read(buf),
+            proportional=FfiConverterUInt32.read(buf),
+            valid_until=FfiConverterString.read(buf),
+            max_idle_time=FfiConverterUInt32.read(buf),
+            max_client_to_self_delay=FfiConverterUInt32.read(buf),
+            promise=FfiConverterString.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterUInt64.write(value.min_msat, buf)
+        FfiConverterUInt32.write(value.proportional, buf)
+        FfiConverterString.write(value.valid_until, buf)
+        FfiConverterUInt32.write(value.max_idle_time, buf)
+        FfiConverterUInt32.write(value.max_client_to_self_delay, buf)
+        FfiConverterString.write(value.promise, buf)
+
+
+class OpeningFeeParamsMenu:
+
+    def __init__(self, values):
+        self.values = values
+
+    def __str__(self):
+        return "OpeningFeeParamsMenu(values={})".format(self.values)
+
+    def __eq__(self, other):
+        if self.values != other.values:
+            return False
+        return True
+
+class FfiConverterTypeOpeningFeeParamsMenu(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return OpeningFeeParamsMenu(
+            values=FfiConverterSequenceTypeOpeningFeeParams.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterSequenceTypeOpeningFeeParams.write(value.values, buf)
+
+
 class Payment:
 
     def __init__(self, id, payment_type, payment_time, amount_msat, fee_msat, pending, description, details):
@@ -2233,6 +2372,106 @@ class FfiConverterTypeRate(FfiConverterRustBuffer):
         FfiConverterDouble.write(value.value, buf)
 
 
+class ReceiveOnchainRequest:
+
+    def __init__(self, opening_fee_params):
+        self.opening_fee_params = opening_fee_params
+
+    def __str__(self):
+        return "ReceiveOnchainRequest(opening_fee_params={})".format(self.opening_fee_params)
+
+    def __eq__(self, other):
+        if self.opening_fee_params != other.opening_fee_params:
+            return False
+        return True
+
+class FfiConverterTypeReceiveOnchainRequest(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return ReceiveOnchainRequest(
+            opening_fee_params=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.opening_fee_params, buf)
+
+
+class ReceivePaymentRequest:
+
+    def __init__(self, amount_sats, description, preimage, opening_fee_params):
+        self.amount_sats = amount_sats
+        self.description = description
+        self.preimage = preimage
+        self.opening_fee_params = opening_fee_params
+
+    def __str__(self):
+        return "ReceivePaymentRequest(amount_sats={}, description={}, preimage={}, opening_fee_params={})".format(self.amount_sats, self.description, self.preimage, self.opening_fee_params)
+
+    def __eq__(self, other):
+        if self.amount_sats != other.amount_sats:
+            return False
+        if self.description != other.description:
+            return False
+        if self.preimage != other.preimage:
+            return False
+        if self.opening_fee_params != other.opening_fee_params:
+            return False
+        return True
+
+class FfiConverterTypeReceivePaymentRequest(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return ReceivePaymentRequest(
+            amount_sats=FfiConverterUInt64.read(buf),
+            description=FfiConverterString.read(buf),
+            preimage=FfiConverterOptionalSequenceUInt8.read(buf),
+            opening_fee_params=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterUInt64.write(value.amount_sats, buf)
+        FfiConverterString.write(value.description, buf)
+        FfiConverterOptionalSequenceUInt8.write(value.preimage, buf)
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.opening_fee_params, buf)
+
+
+class ReceivePaymentResponse:
+
+    def __init__(self, ln_invoice, opening_fee_params, opening_fee_msat):
+        self.ln_invoice = ln_invoice
+        self.opening_fee_params = opening_fee_params
+        self.opening_fee_msat = opening_fee_msat
+
+    def __str__(self):
+        return "ReceivePaymentResponse(ln_invoice={}, opening_fee_params={}, opening_fee_msat={})".format(self.ln_invoice, self.opening_fee_params, self.opening_fee_msat)
+
+    def __eq__(self, other):
+        if self.ln_invoice != other.ln_invoice:
+            return False
+        if self.opening_fee_params != other.opening_fee_params:
+            return False
+        if self.opening_fee_msat != other.opening_fee_msat:
+            return False
+        return True
+
+class FfiConverterTypeReceivePaymentResponse(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return ReceivePaymentResponse(
+            ln_invoice=FfiConverterTypeLnInvoice.read(buf),
+            opening_fee_params=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
+            opening_fee_msat=FfiConverterOptionalUInt64.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterTypeLnInvoice.write(value.ln_invoice, buf)
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.opening_fee_params, buf)
+        FfiConverterOptionalUInt64.write(value.opening_fee_msat, buf)
+
+
 class RecommendedFees:
 
     def __init__(self, fastest_fee, half_hour_fee, hour_fee, economy_fee, minimum_fee):
@@ -2278,6 +2517,31 @@ class FfiConverterTypeRecommendedFees(FfiConverterRustBuffer):
         FfiConverterUInt64.write(value.minimum_fee, buf)
 
 
+class ReverseSwapFeesRequest:
+
+    def __init__(self, send_amount_sat):
+        self.send_amount_sat = send_amount_sat
+
+    def __str__(self):
+        return "ReverseSwapFeesRequest(send_amount_sat={})".format(self.send_amount_sat)
+
+    def __eq__(self, other):
+        if self.send_amount_sat != other.send_amount_sat:
+            return False
+        return True
+
+class FfiConverterTypeReverseSwapFeesRequest(FfiConverterRustBuffer):
+    @staticmethod
+    def read(buf):
+        return ReverseSwapFeesRequest(
+            send_amount_sat=FfiConverterOptionalUInt64.read(buf),
+        )
+
+    @staticmethod
+    def write(value, buf):
+        FfiConverterOptionalUInt64.write(value.send_amount_sat, buf)
+
+
 class ReverseSwapInfo:
 
     def __init__(self, id, claim_pubkey, onchain_amount_sat, status):
@@ -2320,16 +2584,17 @@ class FfiConverterTypeReverseSwapInfo(FfiConverterRustBuffer):
 
 class ReverseSwapPairInfo:
 
-    def __init__(self, min, max, fees_hash, fees_percentage, fees_lockup, fees_claim):
+    def __init__(self, min, max, fees_hash, fees_percentage, fees_lockup, fees_claim, total_estimated_fees):
         self.min = min
         self.max = max
         self.fees_hash = fees_hash
         self.fees_percentage = fees_percentage
         self.fees_lockup = fees_lockup
         self.fees_claim = fees_claim
+        self.total_estimated_fees = total_estimated_fees
 
     def __str__(self):
-        return "ReverseSwapPairInfo(min={}, max={}, fees_hash={}, fees_percentage={}, fees_lockup={}, fees_claim={})".format(self.min, self.max, self.fees_hash, self.fees_percentage, self.fees_lockup, self.fees_claim)
+        return "ReverseSwapPairInfo(min={}, max={}, fees_hash={}, fees_percentage={}, fees_lockup={}, fees_claim={}, total_estimated_fees={})".format(self.min, self.max, self.fees_hash, self.fees_percentage, self.fees_lockup, self.fees_claim, self.total_estimated_fees)
 
     def __eq__(self, other):
         if self.min != other.min:
@@ -2344,6 +2609,8 @@ class ReverseSwapPairInfo:
             return False
         if self.fees_claim != other.fees_claim:
             return False
+        if self.total_estimated_fees != other.total_estimated_fees:
+            return False
         return True
 
 class FfiConverterTypeReverseSwapPairInfo(FfiConverterRustBuffer):
@@ -2356,6 +2623,7 @@ class FfiConverterTypeReverseSwapPairInfo(FfiConverterRustBuffer):
             fees_percentage=FfiConverterDouble.read(buf),
             fees_lockup=FfiConverterUInt64.read(buf),
             fees_claim=FfiConverterUInt64.read(buf),
+            total_estimated_fees=FfiConverterOptionalUInt64.read(buf),
         )
 
     @staticmethod
@@ -2366,6 +2634,7 @@ class FfiConverterTypeReverseSwapPairInfo(FfiConverterRustBuffer):
         FfiConverterDouble.write(value.fees_percentage, buf)
         FfiConverterUInt64.write(value.fees_lockup, buf)
         FfiConverterUInt64.write(value.fees_claim, buf)
+        FfiConverterOptionalUInt64.write(value.total_estimated_fees, buf)
 
 
 class RouteHint:
@@ -2500,7 +2769,7 @@ class FfiConverterTypeSignMessageResponse(FfiConverterRustBuffer):
 
 class SwapInfo:
 
-    def __init__(self, bitcoin_address, created_at, lock_height, payment_hash, preimage, private_key, public_key, swapper_public_key, script, bolt11, paid_sats, unconfirmed_sats, confirmed_sats, status, refund_tx_ids, unconfirmed_tx_ids, confirmed_tx_ids, min_allowed_deposit, max_allowed_deposit, last_redeem_error):
+    def __init__(self, bitcoin_address, created_at, lock_height, payment_hash, preimage, private_key, public_key, swapper_public_key, script, bolt11, paid_sats, unconfirmed_sats, confirmed_sats, status, refund_tx_ids, unconfirmed_tx_ids, confirmed_tx_ids, min_allowed_deposit, max_allowed_deposit, last_redeem_error, channel_opening_fees):
         self.bitcoin_address = bitcoin_address
         self.created_at = created_at
         self.lock_height = lock_height
@@ -2521,9 +2790,10 @@ class SwapInfo:
         self.min_allowed_deposit = min_allowed_deposit
         self.max_allowed_deposit = max_allowed_deposit
         self.last_redeem_error = last_redeem_error
+        self.channel_opening_fees = channel_opening_fees
 
     def __str__(self):
-        return "SwapInfo(bitcoin_address={}, created_at={}, lock_height={}, payment_hash={}, preimage={}, private_key={}, public_key={}, swapper_public_key={}, script={}, bolt11={}, paid_sats={}, unconfirmed_sats={}, confirmed_sats={}, status={}, refund_tx_ids={}, unconfirmed_tx_ids={}, confirmed_tx_ids={}, min_allowed_deposit={}, max_allowed_deposit={}, last_redeem_error={})".format(self.bitcoin_address, self.created_at, self.lock_height, self.payment_hash, self.preimage, self.private_key, self.public_key, self.swapper_public_key, self.script, self.bolt11, self.paid_sats, self.unconfirmed_sats, self.confirmed_sats, self.status, self.refund_tx_ids, self.unconfirmed_tx_ids, self.confirmed_tx_ids, self.min_allowed_deposit, self.max_allowed_deposit, self.last_redeem_error)
+        return "SwapInfo(bitcoin_address={}, created_at={}, lock_height={}, payment_hash={}, preimage={}, private_key={}, public_key={}, swapper_public_key={}, script={}, bolt11={}, paid_sats={}, unconfirmed_sats={}, confirmed_sats={}, status={}, refund_tx_ids={}, unconfirmed_tx_ids={}, confirmed_tx_ids={}, min_allowed_deposit={}, max_allowed_deposit={}, last_redeem_error={}, channel_opening_fees={})".format(self.bitcoin_address, self.created_at, self.lock_height, self.payment_hash, self.preimage, self.private_key, self.public_key, self.swapper_public_key, self.script, self.bolt11, self.paid_sats, self.unconfirmed_sats, self.confirmed_sats, self.status, self.refund_tx_ids, self.unconfirmed_tx_ids, self.confirmed_tx_ids, self.min_allowed_deposit, self.max_allowed_deposit, self.last_redeem_error, self.channel_opening_fees)
 
     def __eq__(self, other):
         if self.bitcoin_address != other.bitcoin_address:
@@ -2566,6 +2836,8 @@ class SwapInfo:
             return False
         if self.last_redeem_error != other.last_redeem_error:
             return False
+        if self.channel_opening_fees != other.channel_opening_fees:
+            return False
         return True
 
 class FfiConverterTypeSwapInfo(FfiConverterRustBuffer):
@@ -2592,6 +2864,7 @@ class FfiConverterTypeSwapInfo(FfiConverterRustBuffer):
             min_allowed_deposit=FfiConverterInt64.read(buf),
             max_allowed_deposit=FfiConverterInt64.read(buf),
             last_redeem_error=FfiConverterOptionalString.read(buf),
+            channel_opening_fees=FfiConverterOptionalTypeOpeningFeeParams.read(buf),
         )
 
     @staticmethod
@@ -2616,6 +2889,7 @@ class FfiConverterTypeSwapInfo(FfiConverterRustBuffer):
         FfiConverterInt64.write(value.min_allowed_deposit, buf)
         FfiConverterInt64.write(value.max_allowed_deposit, buf)
         FfiConverterOptionalString.write(value.last_redeem_error, buf)
+        FfiConverterOptionalTypeOpeningFeeParams.write(value.channel_opening_fees, buf)
 
 
 class Symbol:
@@ -3871,6 +4145,11 @@ class UniFFIExceptionTmpNamespace:
             return "SdkError.LspConnectFailed({})".format(repr(super().__str__()))
 
     SdkError.LspConnectFailed = LspConnectFailed
+    class LspOpenChannelNotSupported(SdkError):
+        def __str__(self):
+            return "SdkError.LspOpenChannelNotSupported({})".format(repr(super().__str__()))
+
+    SdkError.LspOpenChannelNotSupported = LspOpenChannelNotSupported
     class PersistenceFailure(SdkError):
         def __str__(self):
             return "SdkError.PersistenceFailure({})".format(repr(super().__str__()))
@@ -3902,10 +4181,14 @@ class FfiConverterTypeSdkError(FfiConverterRustBuffer):
                 FfiConverterString.read(buf),
             )
         if variant == 4:
-            return SdkError.PersistenceFailure(
+            return SdkError.LspOpenChannelNotSupported(
                 FfiConverterString.read(buf),
             )
         if variant == 5:
+            return SdkError.PersistenceFailure(
+                FfiConverterString.read(buf),
+            )
+        if variant == 6:
             return SdkError.ReceivePaymentFailed(
                 FfiConverterString.read(buf),
             )
@@ -3919,10 +4202,12 @@ class FfiConverterTypeSdkError(FfiConverterRustBuffer):
             buf.writeI32(2)
         if isinstance(value, SdkError.LspConnectFailed):
             buf.writeI32(3)
-        if isinstance(value, SdkError.PersistenceFailure):
+        if isinstance(value, SdkError.LspOpenChannelNotSupported):
             buf.writeI32(4)
-        if isinstance(value, SdkError.ReceivePaymentFailed):
+        if isinstance(value, SdkError.PersistenceFailure):
             buf.writeI32(5)
+        if isinstance(value, SdkError.ReceivePaymentFailed):
+            buf.writeI32(6)
 
 
 
@@ -4061,7 +4346,7 @@ def py_foreignCallbackCallbackInterfaceEventListener(handle, method, args, buf_p
 foreignCallbackCallbackInterfaceEventListener = FOREIGN_CALLBACK_T(py_foreignCallbackCallbackInterfaceEventListener)
 
 # The FfiConverter which transforms the Callbacks in to Handles to pass to Rust.
-rust_call(lambda err: _UniFFILib.ffi_breez_sdk_ddf3_EventListener_init_callback(foreignCallbackCallbackInterfaceEventListener, err))
+rust_call(lambda err: _UniFFILib.ffi_breez_sdk_715c_EventListener_init_callback(foreignCallbackCallbackInterfaceEventListener, err))
 FfiConverterCallbackInterfaceEventListener = FfiConverterCallbackInterface(foreignCallbackCallbackInterfaceEventListener)
 
 
@@ -4129,7 +4414,7 @@ def py_foreignCallbackCallbackInterfaceLogStream(handle, method, args, buf_ptr):
 foreignCallbackCallbackInterfaceLogStream = FOREIGN_CALLBACK_T(py_foreignCallbackCallbackInterfaceLogStream)
 
 # The FfiConverter which transforms the Callbacks in to Handles to pass to Rust.
-rust_call(lambda err: _UniFFILib.ffi_breez_sdk_ddf3_LogStream_init_callback(foreignCallbackCallbackInterfaceLogStream, err))
+rust_call(lambda err: _UniFFILib.ffi_breez_sdk_715c_LogStream_init_callback(foreignCallbackCallbackInterfaceLogStream, err))
 FfiConverterCallbackInterfaceLogStream = FfiConverterCallbackInterface(foreignCallbackCallbackInterfaceLogStream)
 
 
@@ -4310,6 +4595,28 @@ class FfiConverterOptionalTypeLspInformation(FfiConverterRustBuffer):
 
 
 
+class FfiConverterOptionalTypeOpeningFeeParams(FfiConverterRustBuffer):
+    @classmethod
+    def write(cls, value, buf):
+        if value is None:
+            buf.writeU8(0)
+            return
+
+        buf.writeU8(1)
+        FfiConverterTypeOpeningFeeParams.write(value, buf)
+
+    @classmethod
+    def read(cls, buf):
+        flag = buf.readU8()
+        if flag == 0:
+            return None
+        elif flag == 1:
+            return FfiConverterTypeOpeningFeeParams.read(buf)
+        else:
+            raise InternalError("Unexpected flag byte for optional type")
+
+
+
 class FfiConverterOptionalTypePayment(FfiConverterRustBuffer):
     @classmethod
     def write(cls, value, buf):
@@ -4393,6 +4700,28 @@ class FfiConverterOptionalTypeSuccessActionProcessed(FfiConverterRustBuffer):
             return None
         elif flag == 1:
             return FfiConverterTypeSuccessActionProcessed.read(buf)
+        else:
+            raise InternalError("Unexpected flag byte for optional type")
+
+
+
+class FfiConverterOptionalSequenceUInt8(FfiConverterRustBuffer):
+    @classmethod
+    def write(cls, value, buf):
+        if value is None:
+            buf.writeU8(0)
+            return
+
+        buf.writeU8(1)
+        FfiConverterSequenceUInt8.write(value, buf)
+
+    @classmethod
+    def read(cls, buf):
+        flag = buf.readU8()
+        if flag == 0:
+            return None
+        elif flag == 1:
+            return FfiConverterSequenceUInt8.read(buf)
         else:
             raise InternalError("Unexpected flag byte for optional type")
 
@@ -4562,6 +4891,26 @@ class FfiConverterSequenceTypeLspInformation(FfiConverterRustBuffer):
 
 
 
+class FfiConverterSequenceTypeOpeningFeeParams(FfiConverterRustBuffer):
+    @classmethod
+    def write(cls, value, buf):
+        items = len(value)
+        buf.writeI32(items)
+        for item in value:
+            FfiConverterTypeOpeningFeeParams.write(item, buf)
+
+    @classmethod
+    def read(cls, buf):
+        count = buf.readI32()
+        if count < 0:
+            raise InternalError("Unexpected negative sequence length")
+
+        return [
+            FfiConverterTypeOpeningFeeParams.read(buf) for i in range(count)
+        ]
+
+
+
 class FfiConverterSequenceTypePayment(FfiConverterRustBuffer):
     @classmethod
     def write(cls, value, buf):
@@ -4707,7 +5056,7 @@ def connect(config,seed,listener):
     
     listener = listener
     
-    return FfiConverterTypeBlockingBreezServices.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_connect,
+    return FfiConverterTypeBlockingBreezServices.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_connect,
         FfiConverterTypeConfig.lower(config),
         FfiConverterSequenceUInt8.lower(seed),
         FfiConverterCallbackInterfaceEventListener.lower(listener)))
@@ -4717,14 +5066,14 @@ def connect(config,seed,listener):
 def set_log_stream(log_stream):
     log_stream = log_stream
     
-    rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_set_log_stream,
+    rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_set_log_stream,
         FfiConverterCallbackInterfaceLogStream.lower(log_stream))
 
 
 def parse_invoice(invoice):
     invoice = invoice
     
-    return FfiConverterTypeLnInvoice.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_parse_invoice,
+    return FfiConverterTypeLnInvoice.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_parse_invoice,
         FfiConverterString.lower(invoice)))
 
 
@@ -4732,7 +5081,7 @@ def parse_invoice(invoice):
 def parse_input(s):
     s = s
     
-    return FfiConverterTypeInputType.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_parse_input,
+    return FfiConverterTypeInputType.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_parse_input,
         FfiConverterString.lower(s)))
 
 
@@ -4740,7 +5089,7 @@ def parse_input(s):
 def mnemonic_to_seed(phrase):
     phrase = phrase
     
-    return FfiConverterSequenceUInt8.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_ddf3_mnemonic_to_seed,
+    return FfiConverterSequenceUInt8.lift(rust_call_with_error(FfiConverterTypeSdkError,_UniFFILib.breez_sdk_715c_mnemonic_to_seed,
         FfiConverterString.lower(phrase)))
 
 
@@ -4752,7 +5101,7 @@ def default_config(env_type,api_key,node_config):
     
     node_config = node_config
     
-    return FfiConverterTypeConfig.lift(rust_call(_UniFFILib.breez_sdk_ddf3_default_config,
+    return FfiConverterTypeConfig.lift(rust_call(_UniFFILib.breez_sdk_715c_default_config,
         FfiConverterTypeEnvironmentType.lower(env_type),
         FfiConverterString.lower(api_key),
         FfiConverterTypeNodeConfig.lower(node_config)))
@@ -4781,6 +5130,8 @@ __all__ = [
     "BackupFailedData",
     "BackupStatus",
     "BitcoinAddressData",
+    "BuyBitcoinRequest",
+    "BuyBitcoinResponse",
     "CheckMessageRequest",
     "CheckMessageResponse",
     "ClosedChannelPaymentDetails",
@@ -4803,10 +5154,16 @@ __all__ = [
     "MessageSuccessActionData",
     "MetadataItem",
     "NodeState",
+    "OpeningFeeParams",
+    "OpeningFeeParamsMenu",
     "Payment",
     "PaymentFailedData",
     "Rate",
+    "ReceiveOnchainRequest",
+    "ReceivePaymentRequest",
+    "ReceivePaymentResponse",
     "RecommendedFees",
+    "ReverseSwapFeesRequest",
     "ReverseSwapInfo",
     "ReverseSwapPairInfo",
     "RouteHint",
