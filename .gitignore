@@ -6,3 +6,4 @@ libbreez_sdk_bindings.dylib
 __pycache__
 libbreez_sdk_bindings.so
 tmp
+data

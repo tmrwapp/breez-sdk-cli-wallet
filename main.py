@@ -9,6 +9,9 @@ from secrets_loader import load_secrets
 from breez_sdk import LnUrlCallbackStatus, LnUrlPayResult, PaymentTypeFilter
 from info_printer import InfoPrinter
 
+# Name of the directory where the database & logs will be stored
+DATA_DIR = 'data'
+
 # SDK events listener
 class SDKListener(breez_sdk.EventListener, InfoPrinter):
   def on_event(self, event):
@@ -38,8 +41,10 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     config = breez_sdk.default_config(breez_sdk.EnvironmentType.PRODUCTION, api_key,
         breez_sdk.NodeConfig.GREENLIGHT(breez_sdk.GreenlightNodeConfig(None, invite_code)))
 
-    # Customize the config object according to your needs
-    config.working_dir = os.getcwd()+"/tmp"
+    # Creating the data directory if it doesn't exist already
+    if not os.path.exists(DATA_DIR):
+      os.makedirs(DATA_DIR)
+    config.working_dir = os.getcwd() + '/' + DATA_DIR
 
     # Connect to the Breez SDK make it ready for use
     self.sdk_services = breez_sdk.connect(config, seed, SDKListener())
