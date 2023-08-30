@@ -42,3 +42,16 @@ exit                 info              pay_address            swap_progress
 get_deposit_address  list_refundables  pay_invoice            txs          
 get_invoice          lnurl_pay         reverse_swap_progress
 ```
+
+## 🍏 Note for Mac Users: Code Signing on macOS
+
+If you're updating the library, you may encounter an EXC_BAD_ACCESS (SIGKILL - Code Signature Invalid) error
+
+This happens because macOS requires that all executables and shared libraries be signed with a valid code signature. To resolve this, you'll need to manually sign the libbreez_sdk_bindings.dylib file.
+
+Run the following command in your terminal:
+
+```zsh
+$ sudo codesign --force --deep --sign - /<path_to_your_current_dir>/breez-sdk-cli-wallet/libbreez_sdk_bindings.dylib
+
+```
