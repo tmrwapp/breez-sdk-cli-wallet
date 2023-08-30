@@ -1,6 +1,7 @@
 secrets.txt
 storage.sql
 sync_storage.sql
+breez_sdk.py
 libbreez_sdk_bindings.dylib
 __pycache__
 libbreez_sdk_bindings.so
