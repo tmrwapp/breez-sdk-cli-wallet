@@ -6,7 +6,7 @@ from address_checker import AddressChecker
 import breez_sdk
 import cmd
 from secrets_loader import load_secrets
-from breez_sdk import LnUrlCallbackStatus, LnUrlPayResult, PaymentTypeFilter
+from breez_sdk import LnUrlCallbackStatus, LnUrlPayResult, PaymentTypeFilter, ReverseSwapFeesRequest
 from info_printer import InfoPrinter
 
 # Name of the directory where the database & logs will be stored
@@ -123,7 +123,7 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     fee_rate = int(fee_rate)
 
     try:
-      current_fees = self.sdk_services.fetch_reverse_swap_fees()
+      current_fees = self.sdk_services.fetch_reverse_swap_fees(ReverseSwapFeesRequest(amount))
       self._print_reverse_swap_pair_info(current_fees)
       if amount < current_fees.min:
         print(f'❌ Amount is less than minimum ({current_fees.min} sats)')
