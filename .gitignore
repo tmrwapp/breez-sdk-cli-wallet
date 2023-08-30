@@ -3,3 +3,5 @@ storage.sql
 sync_storage.sql
 libbreez_sdk_bindings.dylib
 __pycache__
+libbreez_sdk_bindings.so
+tmp
