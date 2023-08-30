@@ -170,8 +170,8 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     try:
       request = breez_sdk.ReceivePaymentRequest(amount_sats=int(amount), description=memo, preimage=None,
                                                 opening_fee_params=None)
-      invoice = self.sdk_services.receive_payment(req_data=request)
-      print('Pay: ', invoice.bolt11)
+      response = self.sdk_services.receive_payment(req_data=request)
+      print('⚡️ Pay: ', response.ln_invoice.bolt11)
     except Exception as error:
       # Handle error
       print('error getting invoice: ', error)
