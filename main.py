@@ -1,3 +1,14 @@
+import sys
+try:
+  import breez_sdk
+except OSError as error:
+  print('> Error importing breez_sdk, make sure you have installed the Breez SDK')
+  print('> If you\'re running this on a Mac and just updated the SDK, make sure you sign the new binary.')
+  print('> See more here: https://github.com/tmrwapp/breez-sdk-cli-wallet#-note-for-mac-users-code-signing-on-macos')
+  print('')
+  print('Error: ', error)
+  sys.exit(1)
+
 import os
 import time
 import math
