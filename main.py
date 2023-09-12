@@ -281,9 +281,9 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     self._print_payments(payments)
 
   def do_exit(self, arg):
-      """Exit the application."""
-      print("Goodbye!")
-      return True
+    """Exit the application."""
+    print("Goodbye!")
+    return True
 
 if __name__ == '__main__':
   cli = Wallet()
