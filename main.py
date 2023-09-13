@@ -296,6 +296,24 @@ class Wallet(cmd.Cmd, InfoPrinter, AddressChecker):
     print("Goodbye!")
     return True
 
+  def do_dev_command(self, arg):
+    """Runs a dev command
+    Usage: dev_command <command>
+
+    Available commands:
+      - listpeers
+      - listpeerchannels
+      - listfunds
+      - listpayments
+      - listinvoices
+      - closeallchannels
+    """
+    try:
+      res = self.sdk_services.execute_dev_command(arg)
+      print(res)
+    except Exception as error:
+      print('error running dev command: ', error)
+
 if __name__ == '__main__':
   cli = Wallet()
   cli.cmdloop('Welcome to the Breez SDK Wallet!\n\nType `help` or `?` to list commands.')
